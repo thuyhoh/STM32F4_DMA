@@ -1,0 +1,24 @@
+--cpu=Cortex-M4.fp.sp
+"003_dma_uart_sram\startup_stm32f407xx.o"
+"003_dma_uart_sram\main.o"
+"003_dma_uart_sram\stm32f4xx_it.o"
+"003_dma_uart_sram\stm32f4xx_hal_msp.o"
+"003_dma_uart_sram\stm32f4xx_hal_uart.o"
+"003_dma_uart_sram\stm32f4xx_hal_rcc.o"
+"003_dma_uart_sram\stm32f4xx_hal_rcc_ex.o"
+"003_dma_uart_sram\stm32f4xx_hal_flash.o"
+"003_dma_uart_sram\stm32f4xx_hal_flash_ex.o"
+"003_dma_uart_sram\stm32f4xx_hal_flash_ramfunc.o"
+"003_dma_uart_sram\stm32f4xx_hal_gpio.o"
+"003_dma_uart_sram\stm32f4xx_hal_dma_ex.o"
+"003_dma_uart_sram\stm32f4xx_hal_dma.o"
+"003_dma_uart_sram\stm32f4xx_hal_pwr.o"
+"003_dma_uart_sram\stm32f4xx_hal_pwr_ex.o"
+"003_dma_uart_sram\stm32f4xx_hal_cortex.o"
+"003_dma_uart_sram\stm32f4xx_hal.o"
+"003_dma_uart_sram\stm32f4xx_hal_exti.o"
+"003_dma_uart_sram\system_stm32f4xx.o"
+--strict --scatter "003_DMA_UART_SRAM\003_DMA_UART_SRAM.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "003_DMA_UART_SRAM.map" -o 003_DMA_UART_SRAM\003_DMA_UART_SRAM.axf
