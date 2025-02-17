@@ -1,0 +1,23 @@
+--cpu=Cortex-M4.fp.sp
+"002_dma_ledtoggle_it\startup_stm32f407xx.o"
+"002_dma_ledtoggle_it\main.o"
+"002_dma_ledtoggle_it\stm32f4xx_it.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_msp.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_rcc.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_rcc_ex.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_flash.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_flash_ex.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_flash_ramfunc.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_gpio.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_dma_ex.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_dma.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_pwr.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_pwr_ex.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_cortex.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal.o"
+"002_dma_ledtoggle_it\stm32f4xx_hal_exti.o"
+"002_dma_ledtoggle_it\system_stm32f4xx.o"
+--strict --scatter "002_DMA_LEDToggle_IT\002_DMA_LEDToggle_IT.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "002_DMA_LEDToggle_IT.map" -o 002_DMA_LEDToggle_IT\002_DMA_LEDToggle_IT.axf
