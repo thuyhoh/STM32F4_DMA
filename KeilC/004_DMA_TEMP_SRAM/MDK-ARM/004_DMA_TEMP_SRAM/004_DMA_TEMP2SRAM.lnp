@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp.sp
+"004_dma_temp2sram\startup_stm32f407xx.o"
+"004_dma_temp2sram\main.o"
+"004_dma_temp2sram\stm32f4xx_it.o"
+"004_dma_temp2sram\stm32f4xx_hal_msp.o"
+"004_dma_temp2sram\stm32f4xx_hal_adc.o"
+"004_dma_temp2sram\stm32f4xx_hal_adc_ex.o"
+"004_dma_temp2sram\stm32f4xx_ll_adc.o"
+"004_dma_temp2sram\stm32f4xx_hal_rcc.o"
+"004_dma_temp2sram\stm32f4xx_hal_rcc_ex.o"
+"004_dma_temp2sram\stm32f4xx_hal_flash.o"
+"004_dma_temp2sram\stm32f4xx_hal_flash_ex.o"
+"004_dma_temp2sram\stm32f4xx_hal_flash_ramfunc.o"
+"004_dma_temp2sram\stm32f4xx_hal_gpio.o"
+"004_dma_temp2sram\stm32f4xx_hal_dma_ex.o"
+"004_dma_temp2sram\stm32f4xx_hal_dma.o"
+"004_dma_temp2sram\stm32f4xx_hal_pwr.o"
+"004_dma_temp2sram\stm32f4xx_hal_pwr_ex.o"
+"004_dma_temp2sram\stm32f4xx_hal_cortex.o"
+"004_dma_temp2sram\stm32f4xx_hal.o"
+"004_dma_temp2sram\stm32f4xx_hal_exti.o"
+"004_dma_temp2sram\system_stm32f4xx.o"
+--strict --scatter "004_DMA_TEMP2SRAM\004_DMA_TEMP2SRAM.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "004_DMA_TEMP2SRAM.map" -o 004_DMA_TEMP2SRAM\004_DMA_TEMP2SRAM.axf
