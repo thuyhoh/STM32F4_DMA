@@ -65,7 +65,7 @@ Bài toán Đọc dữ liệu từ cảm biến, dùng ADC, và hiển thị lê
 \- đối với trường hợi có cùng mức ưu tiên thì thứ tự ưu tiên: Stream_0 > ... > Stream_7 
 
 ## III. Cấu hình DMA trong STM32CubeMx
-
+- Cấu hình UART DMA 
 ## IV. API
 ``` C
 HAL_StatusTypeDef HAL_DMA_Start( DMA_HandleTypeDef *hdma, 
@@ -92,4 +92,100 @@ HAL_StatusTypeDef HAL_DMA_PollForTransfer( DMA_HandleTypeDef *hdma,
 ```
 
 ## V. Cấu hình thanh ghi
+### 1. Cấu trúc thanh ghi
+1. Cấu trúc thanh ghi DMA
+``` C
+typedef struct
+{
+    volatile uint32_t LISR;
+    volatile uint32_t HISR;
+    volatile uint32_t LIFCR;
+    volatile uint32_t HIFCR;
+}DMA_RegDef;
+```
+2. Cấu trúc thanh ghi DMA_Streamx
+``` C
+typedef struct
+{
+    volatile uint32_t CR;
+    volatile uint32_t PAR;
+    volatile uint32_t M0AR;
+    volatile uint32_t M1AR;
+    volatile uint32_t FCR;
+}DMA_Stream_RegDef;
+```
+### 1. Cấu hình cơ bản
+1. bật đồng hồ ngoại vi cho DMA 
+   - AHB1ENR(RCC) : DMA1(bit 21)/ DMA2(bit 22) 
+
+2. xác định luồng(Stream) và số kênh(Channel) phù hợp với thiết bị ngoại vi: STREAM 0 :
+    - DMA request mapping
+![image](./img/DMA1ReqMapping.png) \
+![image](./img/DMA2ReqMapping.png) 
+    - Chọn luồng: DMA_Stream x(x= 0:7)
+    - chọn kênh : 
+![image](./img/Channel_select.png)
+
+3.  Hướng truyền dữ liệu : m2p, p2m , m2m và Lập trình địa chỉ nguồn và địa chỉ đích
+
+![image](./img/transfer_modes.png)
+
+4. Lập trình số dữ liệu cần gửi
+    - DMA_Streamx->NDTR = số lượng dữ liệu
+5. Lập trình chiều rộng dữ liệu nguồn và đích
+    - DMA_Streamx->CR->PSIZE[1:0]: Peripheral data size
+    - DMA_Streamx->CR->MSIZE[1:0]: Memory data size
+        - 00: byte (8-bit)
+        - 01: half-word (16-bit)
+        - 10: word (32-bit)
+        - 11: reserved
+6. bật tăng bộ nhớ tự động(option)
+    - DMA_Streamx->CR->MINC: Memory increment mode
+    - DMA_Streamx->CR->PINC: Peripheral increment mode
+        - 0: Memory address pointer is fixed
+        - 1: Memory address pointer is incremented after each data transfer (increment is done) 
+7.  chế độ trực tiếp hoặc chế độ FIFO 
+    - DMA_Streamx->FCR->DMDIS
+      - 0: Direct mode enabled
+      - 1: Direct mode disabled 
+8.  Chọn ngưỡng FIFO
+    - DMA_Streamx->FCR->FS[2:0]: FIFO status
+        -  000: 0 < fifo_level < 1/4 
+        - 001: 1/4 ≤ fifo_level < 1/2 
+        - 010: 1/2 ≤ fifo_level < 3/4
+        - 011: 3/4 ≤ fifo_level < full
+        - 100: FIFO is empty
+        - 101: FIFO is full
+
+9.  bật circular mode(option)
+    - DMA_Streamx->CR->CIRC:  Circular mode
+        - 0: Circular mode disabled
+        - 1: Circular mode enabled 
+    - ``note:``
+        - Khi (bit PFCTRL=1) và (bit EN=1), thì bit này sẽ tự động bị phần cứng ép về 0.
+        - Nó sẽ tự động bị phần cứng ép về 1 nếu bit DBM được đặt, ngay khi luồng được bật (bit EN ='1'). 
+10. truyền đơn(single) hoặc truyền theo đợt(blust).
+    
+11. Cấu hình mức độ ưu tiên của luồng 
+    - DMA_Streamx->CR->PL[1:0]:
+        - 00: Low
+        - 01: Medium
+        - 10: High
+        - 11: Very high  
+
+
+### 2. Cấu hình ngắt
+![image](./img/DMAinterrupt.png)
+- vector ngắt
+``` C
+void DMA1_Streamx_IRQHandler(void) // x: 0-7
+{
+    // interrupt handler
+}
+void DMA2_Streamx_IRQHandler(void) // x: 0-7
+{
+    // interrupt handler
+}
+```
+
 
